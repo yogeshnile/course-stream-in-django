@@ -1,0 +1,12 @@
+from django.urls import path
+from . import views
+from django.views.decorators.csrf import csrf_exempt
+
+urlpatterns = [
+    path('username', csrf_exempt(views.Usernamevalidation), name='Usernamevalidation'),
+    path('email', csrf_exempt(views.Emailvalidation), name='Emailvalidation'),
+    path('login-username', csrf_exempt(views.LoginUsernamevalidation), name='LoginUsernamevalidation'),
+    path('user/login', views.handlelogin, name='handlelogin'),
+    path('user/logout', views.handlelogout, name='handlelogout'),
+    path('user/signup', views.handleSignup, name='handleSignup'),
+]

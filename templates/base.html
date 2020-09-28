@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 {% load static %}
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -15,9 +16,13 @@
   {% endblock head %}
   <style>
     .showpassword {
-        cursor: pointer;
+      cursor: pointer;
     }
-</style>
+
+    .showpasswordsingup {
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -40,6 +45,14 @@
 
         </ul>
         <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+          <li class="nav-item active">
+            <h5 class="my-2 mx-2 my-sm-2" style="color: white;">Welcome {{ request.user }} </h5>
+          </li>
+          <li class="nav-item active">
+            <a class="btn btn-outline-success mx-2 my-1 btn-sm" href="{% url 'handlelogout' %}">Logout</a>
+          </li>
+          {% else %}
           <li class="nav-item active">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-outline-success mx-2 my-1 btn-sm" data-toggle="modal"
@@ -49,11 +62,13 @@
             <button type="button" class="btn btn-outline-success mx-1 my-1 btn-sm" data-toggle="modal"
               data-target="#singupModal">SignUp</button>
           </li>
+          {% endif %}
         </ul>
       </div>
     </div>
   </nav>
-
+{% if user.is_authenticated %}
+{% else %}
   <!-- Login Modal -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -67,32 +82,31 @@
         <div class="modal-body">
           <div class="card">
             <div class="card-body">
-                <center>
-                    <h4 class="card-title">Login</h4>
-                </center>
-                <form action="" method="post" autocomplete="off">
+              <center>
+                <h4 class="card-title">Login</h4>
+              </center>
+              <form action="{% url 'handlelogin' %}" method="post" autocomplete="off">
                 {% csrf_token %}
-                    <div class="form-group">
-                        <label for="username">Username <b style="color: red;">*</b></label>
-                        <input type="text" name="login_username" id="login_username"
-                            class="form-control form-control-sm" placeholder="Enter Username"
-                            aria-describedby="helpIdusername" required>
-                        <div id="helpIdusername" class="text-muted login-key-error-username" style="display: none;">
-                        </div>
-                    </div>
+                <div class="form-group">
+                  <label for="username">Username <b style="color: red;">*</b></label>
+                  <input type="text" name="login_username" id="login_username" class="form-control form-control-sm"
+                    placeholder="Enter Username" aria-describedby="helpIdusername" required>
+                  <div id="helpIdusername" class="text-muted login-key-error-username" style="display: none;">
+                  </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="password">Password <b style="color: red;">*</b></label>
-                        <input type="password" name="login_password" id="login_password"
-                            class="form-control form-control-sm passwordshow" placeholder="Enter Password"
-                            aria-describedby="password" required>
-                        <small class="float-right showpassword">SHOW</small>
-                    </div>
+                <div class="form-group">
+                  <label for="password">Password <b style="color: red;">*</b></label>
+                  <input type="password" name="login_password" id="login_password"
+                    class="form-control form-control-sm passwordshow" placeholder="Enter Password"
+                    aria-describedby="password" required>
+                  <small class="float-right showpassword">SHOW</small>
+                </div>
 
-                    <input type="submit" class="btn btn-primary" value="Login" id="loginsubmit">
-                </form>
+                <input type="submit" class="btn btn-primary" value="Login" id="loginsubmit">
+              </form>
             </div>
-        </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -101,8 +115,8 @@
     </div>
   </div>
 
-   <!-- Singup Modal -->
-   <div class="modal fade" id="singupModal" tabindex="-1" aria-labelledby="singupModalLabel" aria-hidden="true">
+  <!-- Singup Modal -->
+  <div class="modal fade" id="singupModal" tabindex="-1" aria-labelledby="singupModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -114,40 +128,40 @@
         <div class="modal-body">
           <div class="card">
             <div class="card-body">
-                <center>
-                    <h4 class="card-title">Ragister</h4>
-                </center>
-                <form action="" method="post" autocomplete="off">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="username">Username <b style="color: red;">*</b></label>
-                        <input type="text" name="username" id="username" class="form-control form-control-sm"
-                            placeholder="Enter Username" aria-describedby="helpIdusername" required>
-                        <div id="helpIdusername" class="text-muted key-error-username" style="display: none;"></div>
-                    </div>
+              <center>
+                <h4 class="card-title">Ragister</h4>
+              </center>
+              <form action="{% url 'handleSignup' %}" method="post" autocomplete="off">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="username">Username <b style="color: red;">*</b></label>
+                  <input type="text" name="username" id="username" class="form-control form-control-sm"
+                    placeholder="Enter Username" aria-describedby="helpIdusername" required>
+                  <div id="helpIdusername" class="text-muted key-error-username" style="display: none;"></div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="emailid">Email <b style="color: red;">*</b></label>
-                        <input type="email" name="emailid" id="emailid" class="form-control form-control-sm"
-                            placeholder="Enter Email" aria-describedby="email" required>
-                        <div id="helpIdemail" class="text-muted key-error-email" style="display: none;"></div>
-                    </div>
+                <div class="form-group">
+                  <label for="emailid">Email <b style="color: red;">*</b></label>
+                  <input type="email" name="emailid" id="emailid" class="form-control form-control-sm"
+                    placeholder="Enter Email" aria-describedby="email" required>
+                  <div id="helpIdemail" class="text-muted key-error-email" style="display: none;"></div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="password">Password <b style="color: red;">*</b></label>
-                        <input type="password" name="password" id="password"
-                            class="form-control form-control-sm passwordshow" placeholder="Enter Password"
-                            aria-describedby="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                        <small class="float-right showpassword">SHOW</small>
-                        <small>Password must contain the following:</small>
-                        <small><b>lowercase</b>, </small>
-                        <small><b>capital (uppercase)</b>, </small>
-                        <small><b>number</b></small>
-                    </div>
-                    <input type="submit" class="btn btn-primary" value="Ragister" id="registersubmit">
-                </form>
+                <div class="form-group">
+                  <label for="password">Password <b style="color: red;">*</b></label>
+                  <input type="password" name="password" id="password"
+                    class="form-control form-control-sm passwordshowsingup" placeholder="Enter Password"
+                    aria-describedby="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                  <small class="float-right showpasswordsingup">SHOW</small>
+                  <small>Password must contain the following:</small>
+                  <small><b>lowercase</b>, </small>
+                  <small><b>capital (uppercase)</b>, </small>
+                  <small><b>number</b></small>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Ragister" id="registersubmit">
+              </form>
             </div>
-        </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -155,11 +169,16 @@
       </div>
     </div>
   </div>
+  {% endif %}
+
   {% block body %}
   {% endblock body %}
 
   <!-- Optional JavaScript -->
-  <script type="text/javascript" src="{% static 'js/ragister.js' %}"></script>
+  {% if user.is_authenticated %}
+  {% else %}
+  <script type="text/javascript" src="{% static 'js/validation.js' %}"></script>
+  {% endif %}
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
