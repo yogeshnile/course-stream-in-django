@@ -4,6 +4,7 @@ import json
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def Usernamevalidation(request):
@@ -61,14 +62,14 @@ def handlelogin(request):
         if user is not None:
             auth_login(request,user)
             #messages.success(request, "Successfully Logged In")
-            return redirect('home')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             #messages.error(request, "Login Unsuccessful")
-            return redirect('home')
-    return redirect('home')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def handlelogout(request):
     logout(request)
     #messages.success(request, "Logout Successfully")
-    return redirect('home')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

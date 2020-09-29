@@ -42,6 +42,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'blog' %}">Blog</a>
           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'pricing' %}">Pricing</a>
+          </li>
 
         </ul>
         <ul class="navbar-nav">
@@ -59,7 +62,7 @@
               data-target="#loginModal">Login</button>
           </li>
           <li class="nav-item">
-            <button type="button" class="btn btn-outline-success mx-1 my-1 btn-sm" data-toggle="modal"
+            <button type="button" class="btn btn-success mx-1 my-1 btn-sm" data-toggle="modal"
               data-target="#singupModal">SignUp</button>
           </li>
           {% endif %}
