@@ -1,5 +1,5 @@
-from django.shortcuts import render, HttpResponse
-from .models import Course
+from django.shortcuts import render
+from .models import Course, Lecture
 
 # Create your views here.
 def home(request):
@@ -13,7 +13,13 @@ def courses(request):
     return render(request, 'courses.html', context)
 
 def course_detail(request, slug):
-    return render(request, 'course_detail.html')
+    course = Course.objects.filter(course_slug=slug).first()
+    lecture = Lecture.objects.filter(course=course).first()
+    context = {
+        "course":course,
+        "lecture":lecture
+    }
+    return render(request, 'course_detail.html', context)
 
 def blog(request):
     return render(request, 'blog.html')

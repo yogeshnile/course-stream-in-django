@@ -22,3 +22,11 @@ class Course(models.Model):
     def save(self, *args, **kwargs):
         self.course_slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+class Lecture(models.Model):
+    title = models.CharField(max_length=100)
+    video_url = models.CharField(max_length=100)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.title} - {self.course}"

@@ -1,11 +1,48 @@
 {% extends 'base.html' %}
 
-{% block title %}Courses Details
+{% block title %}{{ course.title }} | Courses Details
 {% endblock title %}
 
 {% block head %}
 {% endblock head %}
 
 {% block body %}
-Blogs
+<div class="container my-4">
+    <div class="row">
+        <div class="col-sm-3 ">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ course.thumbnail_url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description | truncatechars:100}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ course.course_length }}</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-8 px-0 mx-0">
+            <div class="card">
+                <div class="card-header">
+                    {{ course.title }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ lecture.title }}</h5>
+                    <p class="card-text">{{ course.description }}</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock body %}

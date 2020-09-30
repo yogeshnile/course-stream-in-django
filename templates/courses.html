@@ -12,7 +12,7 @@
         {% for course in course %}
         <div class="col-sm-4">
             <div class="card my-4 mx-3" style="width: 18rem;">
-                <img src="{% static 'images/Courses.png' %}" class="card-img-top" alt="Course Thumbnail">
+                <img src="{{ course.thumbnail_url }}" class="card-img-top" alt="Course Thumbnail">
                 <div class="card-body">
                     <h5 class="card-title">{{ course.title }}</h5>
                     <p class="card-text">{{ course.description | truncatechars:100}}</p>
