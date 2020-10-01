@@ -22,11 +22,26 @@
     .showpasswordsingup {
       cursor: pointer;
     }
+
+    /*
+ * Footer
+ */
+    .blog-footer {
+      padding: 2.5rem 0;
+      color: #999;
+      text-align: center;
+      background-color: #f9f9f9;
+      border-top: .05rem solid #e5e5e5;
+    }
+
+    .blog-footer p:last-child {
+      margin-bottom: 0;
+    }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom shadow-sm">
     <div class="container">
       <a class="navbar-brand" href="{% url 'home' %}">StartUP</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -42,7 +57,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'blog' %}">Blog</a>
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'pricing' %}">Pricing</a>
           </li>
 
@@ -70,8 +85,8 @@
       </div>
     </div>
   </nav>
-{% if user.is_authenticated %}
-{% else %}
+  {% if user.is_authenticated %}
+  {% else %}
   <!-- Login Modal -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -176,6 +191,12 @@
 
   {% block body %}
   {% endblock body %}
+  <footer class="blog-footer">
+    <p>Made with ❤️ by <a href="https://twitter.com/yogeshnile">@YogeshNile</a></p>
+    <p>
+      <a href="#">Back to top</a>
+    </p>
+  </footer>
 
   <!-- Optional JavaScript -->
   {% if user.is_authenticated %}

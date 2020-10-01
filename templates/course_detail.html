@@ -17,9 +17,9 @@
                     <p class="card-text">{{ course.description | truncatechars:100}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{ course.course_length }}</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">{{ course.course_type }}</li>
+                    <li class="list-group-item"><img src="https://img.icons8.com/android/20/000000/time.png"/> {{ course.course_length }}</li>
+                    <li class="list-group-item"><img src="https://img.icons8.com/material-outlined/20/000000/video.png"/> {{ lecture.count }} Videos</li>
+                    <li class="list-group-item"><img src="https://img.icons8.com/metro/20/000000/price-tag-euro.png"/> {{ course.course_type }}</li>
                 </ul>
                 <div class="card-body">
                     <a href="#" class="btn btn-info">Subscribe Now</a>
@@ -64,5 +64,4 @@
         </div>
     </div>
 </div>
-
 {% endblock body %}

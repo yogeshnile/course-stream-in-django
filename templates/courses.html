@@ -11,7 +11,7 @@
     <div class="row">
         {% for course in course %}
         <div class="col-sm-4">
-            <div class="card my-4 mx-3" style="width: 18rem;">
+            <div class="card my-4 mx-3 shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
                 <img src="{{ course.thumbnail_url }}" class="card-img-top" alt="Course Thumbnail">
                 <div class="card-body">
                     <h5 class="card-title">{{ course.title }}</h5>
@@ -21,7 +21,7 @@
                             <p class="card-text ">Length: <br>{{ course.course_length }}</p>
                         </div>
                         <div class="col-sm-6">
-                            <a href="Courses/{{ course.course_slug }}" class="btn btn-info py-2 my-1">Learn More</a>
+                            <a href="Courses/{{ course.course_slug }}" class="btn btn-info py-2 my-1">Get it</a>
                         </div>
                     </div>
                 </div>

@@ -34,8 +34,11 @@ class Lecture(models.Model):
     title = models.CharField(max_length=100)
     video_url = models.CharField(max_length=100)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     
+    def save(self, *args, **kwargs):
+        self.course = self.section.course
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.id} - {self.title} - {self.section}"
