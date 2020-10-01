@@ -10,7 +10,7 @@
 <div class="container my-4">
     <div class="row">
         <div class="col-sm-3 ">
-            <div class="card" style="width: 18rem;">
+            <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
                 <img src="{{ course.thumbnail_url }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ course.title }}</h5>
@@ -19,11 +19,10 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{ course.course_length }}</li>
                     <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                    <li class="list-group-item">{{ course.course_type }}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <a href="#" class="btn btn-info">Subscribe Now</a>
                 </div>
             </div>
         </div>
@@ -31,14 +30,35 @@
 
         </div>
         <div class="col-sm-8 px-0 mx-0">
-            <div class="card">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
                 <div class="card-header">
                     {{ course.title }}
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ lecture.title }}</h5>
                     <p class="card-text">{{ course.description }}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <div class="accordion" id="accordionExample">
+                        {% for section in section %}
+                        <div class="card">
+                            <div class="card-header" id="headingOne{{ section.id }}">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-block text-left" type="button" data-toggle="collapse"
+                                        data-target="#collapseOne{{ section.id }}" aria-expanded="true"
+                                        aria-controls="collapseOne{{ section.id }}">
+                                        <img src="https://img.icons8.com/pastel-glyph/15/000000/plus.png"/> {{ section.title }}
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseOne{{ section.id }}" class="collapse show"
+                                aria-labelledby="headingOne{{ section.id }}" data-parent="#accordionExample">
+                                <div class="card-body">{% for lecture in lecture %}{% if lecture.section == section %}
+                                    <li>{{ lecture.title }}</li>
+                                    {% else %}{% endif %}{% endfor %}
+                                </div>
+                            </div>
+                        </div>{% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
