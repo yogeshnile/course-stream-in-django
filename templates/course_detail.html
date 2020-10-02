@@ -53,7 +53,7 @@
                             <div id="collapseOne{{ section.id }}" class="collapse show"
                                 aria-labelledby="headingOne{{ section.id }}" data-parent="#accordionExample">
                                 <div class="card-body">{% for lecture in lecture %}{% if lecture.section == section %}
-                                    <li>{{ lecture.title }}</li>
+                                    <li><a href="{{ course.course_slug }}/{{ lecture.lecture_slug }}">{{ lecture.title }}</a></li>
                                     {% else %}{% endif %}{% endfor %}
                                 </div>
                             </div>

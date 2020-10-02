@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ video.title }} | {{ course.title }}
+{% endblock title %}
+
+{% block head %}
+{% endblock head %}
+
+{% block body %}
+<div class="container-fluid my-3">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-header">
+                    {{ course.title }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ lecture.title }}</h5>
+                    <div class="accordion" id="accordionExample">
+                        {% for section in section %}
+                        <div class="card">
+                            <div class="card-header" id="headingOne{{ section.id }}">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapseOne{{ section.id }}"
+                                        aria-expanded="true" aria-controls="collapseOne{{ section.id }}">
+                                        <img src="https://img.icons8.com/pastel-glyph/15/000000/plus.png" />
+                                        {{ section.title }}
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseOne{{ section.id }}" class="collapse show"
+                                aria-labelledby="headingOne{{ section.id }}" data-parent="#accordionExample">
+                                <div class="card-body">{% for lecture in lecture %}{% if lecture.section == section %}
+                                    <li><a href="{{ lecture.lecture_slug }}">{{ lecture.title }}</a>
+                                    </li>
+                                    {% else %}{% endif %}{% endfor %}
+                                </div>
+                            </div>
+                        </div>{% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <h5 class="card-header">{{ video.title }}</h5>
+                <div class="card-body">
+                    <iframe width="100%" height="450"
+                    src="{{ video.video_url }}">
+                    </iframe> 
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

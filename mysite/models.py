@@ -34,10 +34,12 @@ class Lecture(models.Model):
     title = models.CharField(max_length=100)
     video_url = models.CharField(max_length=100)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True)
+    lecture_slug = models.SlugField(default="-")
     
     def save(self, *args, **kwargs):
         self.course = self.section.course
+        self.lecture_slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     def __str__(self):
