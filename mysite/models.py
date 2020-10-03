@@ -30,17 +30,25 @@ class Section(models.Model):
     def __str__(self):
         return f"{self.title} - {self.course}"
 
+LECTURE_TYPE = [
+    ("PREMIUM","PREMIUM"),
+    ("NOT PREMIUM","NOT PREMIUM"),
+]
+
 class Lecture(models.Model):
     title = models.CharField(max_length=100)
     video_url = models.CharField(max_length=100)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True)
     lecture_slug = models.SlugField(default="-")
+    lecture_type = models.CharField(max_length=12, choices=LECTURE_TYPE, default="PREMIUM")
     
     def save(self, *args, **kwargs):
         self.course = self.section.course
         self.lecture_slug = slugify(self.title)
+        if self.section.course.course_type == "FREE":
+            self.lecture_type = "NOT PREMIUM"
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.id} - {self.title} - {self.section}"
+        return f"{self.id} - {self.title} - {self.section} - {self.lecture_type}"
