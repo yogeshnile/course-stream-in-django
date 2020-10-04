@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mysite.apps.MysiteConfig',
     'validation.apps.ValidationConfig',
+    'blog.apps.BlogConfig',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

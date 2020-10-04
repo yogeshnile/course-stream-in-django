@@ -90,6 +90,7 @@ loginusernameField.addEventListener("keyup", (e) => {
     //console.log('usernameval', usernameval);
 
     loginusernameField.classList.remove("is-invalid");
+    loginusernameField.classList.remove("is-valid");
     loginfeedbackusername.style.display = "none";
     loginbutton.disabled = false;
 
@@ -103,6 +104,8 @@ loginusernameField.addEventListener("keyup", (e) => {
                 loginfeedbackusername.style.display = "block";
                 loginfeedbackusername.innerHTML = `<small>${data.login_username_error}</small>`;
                 loginbutton.disabled = true;
+            } else if (data.login_username_valid) {
+                loginusernameField.classList.add("is-valid");
             }
         });
     }

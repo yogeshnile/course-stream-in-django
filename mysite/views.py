@@ -36,8 +36,5 @@ def lecture_detail(request, slug, lecture_slug):
     }
     return render(request, 'lecture.html', context)
 
-def blog(request):
-    return render(request, 'blog.html')
-
 def pricing(request):
     return render(request, 'pricing.html')

@@ -13,10 +13,10 @@ def Usernamevalidation(request):
         username = data['username']
 
         if not str(username).isalnum():
-            return JsonResponse({'username_error':'username should only contain alphanumeric characters'}, status=400)
+            return JsonResponse({'username_error':'username should only contain alphanumeric characters'})
         
         if User.objects.filter(username=username).exists():
-            return JsonResponse({'username_error':'username already exists try another one'}, status=409)
+            return JsonResponse({'username_error':'username already exists try another one'})
 
         return JsonResponse({'username_valid':True})
 
@@ -27,7 +27,7 @@ def Emailvalidation(request):
         email = data['emailid']
         
         if User.objects.filter(email=email).exists():
-            return JsonResponse({'email_error':'email already exists try another one'}, status=409)
+            return JsonResponse({'email_error':'email already exists try another one'})
 
         return JsonResponse({'email_valid':True})
 
@@ -37,7 +37,7 @@ def LoginUsernamevalidation(request):
         username = data['login_username']
 
         if not User.objects.filter(username=username).exists():
-            return JsonResponse({'login_username_error':'This username does not avilable please ragister first.'}, status=400)
+            return JsonResponse({'login_username_error':'This username does not avilable please ragister first.'}) # 'status=400' write when debug
         return JsonResponse({'login_username_valid':True})
     
 def handleSignup(request):
