@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-  <title>{% block title %}{% endblock title %} | StartUP!</title>
+  <title>{% block title %}{% endblock title %} - StartUP!</title>
   {% block head %}
   {% endblock head %}
   <style>
@@ -64,12 +64,16 @@
         </ul>
         <ul class="navbar-nav">
           {% if user.is_authenticated %}
-          <li class="nav-item active">
-            <h5 class="my-2 mx-2 my-sm-2" style="color: white;">Welcome {{ request.user }} </h5>
-          </li>
-          <li class="nav-item active">
-            <a class="btn btn-outline-success mx-2 my-1 btn-sm" href="{% url 'handlelogout' %}">Logout</a>
-          </li>
+          <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <img src="https://img.icons8.com/color/24/000000/user-male-circle.png"/> {{ request.user|upper }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="studentDropdown">
+          <a class="dropdown-item" href="{% url 'info' %}">User Account</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'handlelogout' %}">Logout</a>
+        </div>
+      </li>
           {% else %}
           <li class="nav-item active">
             <!-- Button trigger modal -->

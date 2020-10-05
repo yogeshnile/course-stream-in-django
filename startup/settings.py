@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'validation.apps.ValidationConfig',
     'blog.apps.BlogConfig',
     'django.contrib.humanize',
+    'student.apps.StudentConfig',
 ]
 
 MIDDLEWARE = [
