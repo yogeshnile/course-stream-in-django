@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 def bloghome(request):
     allpost = Post.objects.all()
     context = {'allposts': allpost}
-    return render(request, 'blog.html', context)
+    return render(request, 'blog/blog.html', context)
 
 def blogpost(request, slug):
     post = Post.objects.filter(slug=slug).first()
@@ -27,7 +27,7 @@ def blogpost(request, slug):
         'comment':comment,
         'replyDict':replyDict
     }
-    return render(request, 'blogpost.html',context)
+    return render(request, 'blog/blogpost.html',context)
 
 def Postcomment(request):
     if request.method == 'POST':
