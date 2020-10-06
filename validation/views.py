@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
 from django.http import HttpResponseRedirect
+from student.models import StudentInfo
 
 # Create your views here.
 def currentPassvalidation(request):
@@ -57,11 +58,15 @@ def handleSignup(request):
         username = request.POST['username']
         email = request.POST['emailid']
         password = request.POST['password']
+        mobile = request.POST['mobileno']
+        dob = request.POST['dob'] #output yyyy-mm-dd
+        address = request.POST['address']
 
         myuser = User.objects.create_user(username, email, password)
         myuser.save()
-        # messages.success(request, "Account Create Successfully")
-        
+        myuser = User.objects.filter(username=username).first()
+        student_detail = StudentInfo.objects.create(username=myuser, mobile_no=mobile, dob=dob, address=address)
+        student_detail.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
