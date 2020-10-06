@@ -6,6 +6,7 @@ urlpatterns = [
     path('username', csrf_exempt(views.Usernamevalidation), name='Usernamevalidation'),
     path('email', csrf_exempt(views.Emailvalidation), name='Emailvalidation'),
     path('login-username', csrf_exempt(views.LoginUsernamevalidation), name='LoginUsernamevalidation'),
+    path('password', csrf_exempt(views.currentPassvalidation), name='currentPassvalidation'),
     path('user/login', views.handlelogin, name='handlelogin'),
     path('user/logout', views.handlelogout, name='handlelogout'),
     path('user/signup', views.handleSignup, name='handleSignup'),

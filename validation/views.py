@@ -7,6 +7,18 @@ from django.contrib.auth import login as auth_login
 from django.http import HttpResponseRedirect
 
 # Create your views here.
+def currentPassvalidation(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        currentPass = data['password']
+        users = User.objects.filter(username=request.user).first()
+        valid = users.check_password(currentPass)
+        if not valid:
+            return JsonResponse({'password_error':'Your password is not correct.'})
+        else:
+            return JsonResponse({'password_valid':True})
+
+
 def Usernamevalidation(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -50,8 +62,8 @@ def handleSignup(request):
         myuser.save()
         # messages.success(request, "Account Create Successfully")
         
-        return redirect('home')
-    return redirect('home')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def handlelogin(request):
     if request.method == 'POST':
