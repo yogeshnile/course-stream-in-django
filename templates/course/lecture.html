@@ -64,7 +64,7 @@
                             </form>
                         </div>
                     </div>
-                    {% for comment in lecture_comment %}
+                    {% for comment in lecture_comment reversed %}
                     <div class="row my-3">
                         <div class="col-md-1"><img src="https://img.icons8.com/doodle/50/000000/user-male.png" /></div>
                         <div class="col-md-11"><b> {{ comment.user.username }}</b> <span class="badge badge-secondary">

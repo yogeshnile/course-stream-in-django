@@ -9,21 +9,23 @@
 {% block body %}
 <div class="container my-4">
     <div class="row">
-        {% for course in course %}
+        {% for course in course reversed %}
         <div class="col-sm-4">
-            <div class="card my-4 mx-3 shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                <img src="{{ course.thumbnail_url }}" class="card-img-top" alt="Course Thumbnail">
+            <div class="card my-4 mx-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                <img src="{{ course.thumbnail_url }}" class="card-img-top" alt="Course Thumbnail" height="150">
                 <div class="card-body">
                     <h5 class="card-title">{{ course.title }}</h5>
-                    <p class="card-text">{{ course.description | truncatechars:100}}</p>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p class="card-text ">Length: <br>{{ course.course_length }}</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="Courses/{{ course.course_slug }}" class="btn btn-info py-2 my-1">Get it</a>
-                        </div>
-                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><img src="https://img.icons8.com/android/20/000000/time.png" />
+                        {{ course.course_length }}</li>
+                    <li class="list-group-item"><img src="https://img.icons8.com/metro/20/000000/price-tag-euro.png" />
+                        {{ course.course_type }}</li>
+                </ul>
+                <div class="card-body">
+                    <center>
+                        <a href="Courses/{{ course.course_slug }}" class="btn btn-info py-2 my-1">View Course Details</a>
+                    </center>
                 </div>
             </div>
         </div>
