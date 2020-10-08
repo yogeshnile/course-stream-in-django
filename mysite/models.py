@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 # Create your models here.
 
@@ -52,3 +54,12 @@ class Lecture(models.Model):
 
     def __str__(self):
         return f"{self.id} - {self.title} - {self.section} - {self.lecture_type}"
+
+class LectureComment(models.Model):
+    comment = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(default=now)
+
+    def __str__(self):
+        return f"{self.id} - {self.user.username} - {self.comment[0:15]} ..."

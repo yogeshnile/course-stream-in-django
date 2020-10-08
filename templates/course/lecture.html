@@ -5,7 +5,7 @@
 
 {% block head %}
 {% endblock head %}
-
+{% load humanize %}
 {% block body %}
 <div class="container-fluid my-3">
     <div class="row">
@@ -46,6 +46,32 @@
                 <h5 class="card-header">{{ video.title }}</h5>
                 <div class="card-body">
                     <iframe width="100%" height="450" src="{{ video.video_url }}"></iframe>
+                </div>
+            </div>
+            <div class="card shadow-lg my-4">
+                <div class="card-body">
+                    <h3 class="card-title">Comments: ({{ lecture_comment.count }})</h3>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form action="/courses/lecture/comment" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="comment" id="comment"
+                                        aria-describedby="text" placeholder="Enter Comment here">
+                                </div>
+                                <input type="hidden" name="lecture_id" id="lecture_id" value="{{ video.id }}">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% for comment in lecture_comment %}
+                    <div class="row my-3">
+                        <div class="col-md-1"><img src="https://img.icons8.com/doodle/50/000000/user-male.png" /></div>
+                        <div class="col-md-11"><b> {{ comment.user.username }}</b> <span class="badge badge-secondary">
+                                {{ comment.timestamp | naturaltime }}</span>
+                            <div> {{ comment.comment}}</div>
+                        </div>
+                    </div>{% endfor %}
                 </div>
             </div>
         </div>
