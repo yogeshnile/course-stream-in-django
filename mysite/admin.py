@@ -20,7 +20,13 @@ class LectureAdmin(admin.ModelAdmin):
     list_per_page = 50
     search_fields = ('title','section',)
 
+class LectureCommentAdmin(admin.ModelAdmin):
+    list_per_page = 20
+    list_display = ('comment','user','lecture')
+    list_filter = ('lecture',)
+    search_fields = ('comment',)
+
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Section, SectionAdmin)
 admin.site.register(Lecture, LectureAdmin)
-admin.site.register(LectureComment)
+admin.site.register(LectureComment, LectureCommentAdmin)
