@@ -7,6 +7,13 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     list_filter = ('course_type',)
     list_per_page = 10
+    ordering = ['title']
+    readonly_fields = ('course_slug',)
+    # prepopulated_fields = {'course_slug':['title']}
+    fieldsets = [
+        ("UPDATE BY ADMIN", {'fields': ['title','description','thumbnail_url','course_type','course_length']}),
+        ("UPDATE BY SYSTEM", {'fields': ['course_slug']}),
+    ]
 
 class SectionAdmin(admin.ModelAdmin):
     list_display = ('title', 'course',)
@@ -19,12 +26,18 @@ class LectureAdmin(admin.ModelAdmin):
     list_filter = ('lecture_type', 'course',)
     list_per_page = 50
     search_fields = ('title','section',)
+    readonly_fields = ('lecture_slug','course')
+    fieldsets = [
+        ("UPDATE BY ADMIN", {'fields': ['title','video_url','section','lecture_type']}),
+        ("UPDATE BY SYSTEM", {'fields': ['course','lecture_slug']}),
+    ]
 
 class LectureCommentAdmin(admin.ModelAdmin):
     list_per_page = 20
     list_display = ('comment','user','lecture')
     list_filter = ('lecture',)
     search_fields = ('comment',)
+    readonly_fields = ('timestamp',)
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Section, SectionAdmin)
