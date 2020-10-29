@@ -50,6 +50,7 @@ class Lecture(models.Model):
         self.lecture_slug = slugify(self.title)
         if self.section.course.course_type == "FREE":
             self.lecture_type = "NOT PREMIUM"
+            self.video_url = "https://youtube.com/embed/"+self.video_url
         super().save(*args, **kwargs)
 
     def __str__(self):
