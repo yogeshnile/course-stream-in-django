@@ -9,32 +9,34 @@
 <div class="container">
     <div class="jumbotron jumbotron-fluid bg-transparent">
         <div class="container text-center">
-            <h1 class="display-4">Subscripe to Premium Packages</h1>
+            <h1 class="display-4">Subscripe to Premium Courses</h1>
             <p class="lead">ENJOY PREMIUM CONTENT AT AFFORDABLE PRICE</p>
         </div>
     </div>
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 offset-md-4">
-            <div class="card-deck mb-3 text-center">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">Developer</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$20 / month</h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>Error Support</li>
-                            <li>No Advertisement</li>
-                            <li>Email support</li>
-                            <li>Help center access</li>
-                        </ul>
-                        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Get Primium</button>
-                    </div>
+        {% for course in course reversed %}
+        <div class="col-sm-4">
+            <div class="card my-4 mx-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                <img src="{{ course.thumbnail_url }}" class="card-img-top" alt="Course Thumbnail" height="150">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><img src="https://img.icons8.com/android/20/000000/time.png" />
+                        {{ course.course_length }}</li>
+                    <li class="list-group-item"><img src="https://img.icons8.com/metro/20/000000/price-tag-euro.png" />
+                        {{ course.course_type }}</li>
+                </ul>
+                <div class="card-body">
+                    <center>
+                        <a href="Courses/{{ course.course_slug }}" class="btn btn-info py-2 my-1">View Course Details</a>
+                    </center>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock body %}

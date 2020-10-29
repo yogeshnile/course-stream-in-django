@@ -32,8 +32,10 @@
                             <div id="collapseOne{{ section.id }}" class="collapse show"
                                 aria-labelledby="headingOne{{ section.id }}" data-parent="#accordionExample">
                                 <div class="card-body">{% for lecture in lecture %}{% if lecture.section == section %}
+                                {% if lecture.lecture_type == "NOT PREMIUM" %}
                                     <li><a href="{{ lecture.lecture_slug }}">{{ lecture.title }}</a>
-                                    </li>{% else %}{% endif %}{% endfor %}
+                                    </li>{% else %}<li>{{ lecture.title }} <span class="badge badge-pill badge-secondary">PREMIUM VIDEO</span></li>
+                                    {% endif %}{% else %}{% endif %}{% endfor %}
                                 </div>
                             </div>
                         </div>{% endfor %}

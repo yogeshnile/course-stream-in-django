@@ -41,7 +41,11 @@ def lecture_detail(request, slug, lecture_slug):
     return render(request, 'course/lecture.html', context)
 
 def pricing(request):
-    return render(request, 'course/pricing.html')
+    course = Course.objects.filter(course_type="PAID")
+    context = {
+        "course": course
+    }
+    return render(request, 'course/pricing.html', context)
 
 def videoComment(request):
     if request.user.is_authenticated == True:
