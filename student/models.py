@@ -17,6 +17,7 @@ class CourseSubscription(models.Model):
     student = models.OneToOneField("student.StudentInfo", verbose_name=("student"), on_delete=models.CASCADE)
     course = models.OneToOneField("mysite.Course", verbose_name=("course"), on_delete=models.CASCADE)
     DateStamp = models.DateTimeField(default=now)
+    progress = models.CharField(default="0 %", max_length=10)
 
     def __str__(self):
         return f"{self.student.username} ==== {self.course}"

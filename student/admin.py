@@ -9,10 +9,10 @@ class StudentInfoAdmin(admin.ModelAdmin):
     readonly_fields = ('username','mobile_no','dob','address')
 
 class CourseSubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('student','course')
+    list_display = ('student','course','progress')
     list_per_page = 20
     search_fields = ('student','course')
-    readonly_fields = ('DateStamp',)
+    readonly_fields = ('DateStamp','progress')
     list_filter = ('student','course','DateStamp')
 
 admin.site.register(StudentInfo, StudentInfoAdmin)

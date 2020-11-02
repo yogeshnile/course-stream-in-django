@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Change Password - {{ request.user }} - Student Dashboard {% endblock title %}
+{% block title %} Your Subscription Courses - {{ request.user }} - Student Dashboard {% endblock title %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
@@ -47,11 +47,8 @@
                             <h5 class="card-title">{{ ucourse.course.title }}</h5>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><img src="https://img.icons8.com/android/20/000000/time.png" />
-                                {{ course.course_length }}</li>
-                            <li class="list-group-item"><img
-                                    src="https://img.icons8.com/metro/20/000000/price-tag-euro.png" />
-                                {{ course.course_type }}</li>
+                            <li class="list-group-item"><img src="https://img.icons8.com/metro/20/000000/in-progress.png"/> Progress 
+                                <span class="badge badge-danger">{{ ucourse.progress }}</span></li>
                         </ul>
                         <div class="card-body">
                             <center>
