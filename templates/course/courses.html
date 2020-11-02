@@ -24,7 +24,7 @@
                 </ul>
                 <div class="card-body">
                     <center>
-                        <a href="Courses/{{ course.course_slug }}" class="btn btn-info py-2 my-1">View Course Details</a>
+                        <a href="{% url 'course_detail' course.course_slug %}" class="btn btn-info py-2 my-1">View Course Details</a>
                     </center>
                 </div>
             </div>

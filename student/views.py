@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from .models import CourseSubscription, StudentInfo
 
 # Create your views here.
 def info(request):
@@ -19,4 +20,15 @@ def ChangePassword(request):
             logout(request)
             return redirect("home")
         return render(request, "student/change_password.html")
+    return redirect("home")
+
+def UserCourse(request):
+    if request.user.is_authenticated == True:
+        user = StudentInfo.objects.filter(username=request.user).first()
+        ucourse = CourseSubscription.objects.filter(student=user)
+        print(ucourse)
+        contest = {
+            "ucourse":ucourse,
+        }
+        return render(request, "student/user_course.html", contest)
     return redirect("home")

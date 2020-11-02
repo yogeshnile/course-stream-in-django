@@ -18,13 +18,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'ChangePassword' %}">
+                        <a class="nav-link" href="{% url 'ChangePassword' %}">
                             <img src="https://img.icons8.com/ios/24/000000/password-window.png" />
                             Change Password
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'UserCourse' %}">
+                        <a class="nav-link active" href="{% url 'UserCourse' %}">
                             <img src="https://img.icons8.com/wired/24/000000/singing-teacher.png" />
                             Your Courses
                         </a>
@@ -36,29 +36,32 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div
                 class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Change Password</h1>
+                <h1 class="h2">Your Courses</h1>
             </div>
             <div class="row">
-                <div class="col-md-2"></div>
+                {% for ucourse in ucourse reversed %}
                 <div class="col-md-4">
-                    <form action="{% url 'ChangePassword' %}" method="POST" autocomplete="off">{% csrf_token %}
-                        <div class="form-group">
-                            <label for="currentPassword">Current Password <b style="color: red;">*</b></label>
-                            <input type="password" class="form-control form-control-sm currentpass" id="currentPassword" name="currentPassword" required><small class="float-right showpassword currentpassword">SHOW</small>
-                            <div id="helpIdusername" class="text-muted password-key-error" style="display: none;"></div>
+                    <div class="card my-4 mx-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <img src="{{ ucourse.course.thumbnail_url }}" class="card-img-top" alt="Course Thumbnail" height="150">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ ucourse.course.title }}</h5>
                         </div>
-                        <div class="form-group">
-                            <label for="newPassword">New Password <b style="color: red;">*</b></label>
-                            <input type="password" class="form-control form-control-sm newpassword" id="newPassword" name="newPassword" required>
-                            <small class="float-right showpassword newpass">SHOW</small>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><img src="https://img.icons8.com/android/20/000000/time.png" />
+                                {{ course.course_length }}</li>
+                            <li class="list-group-item"><img
+                                    src="https://img.icons8.com/metro/20/000000/price-tag-euro.png" />
+                                {{ course.course_type }}</li>
+                        </ul>
+                        <div class="card-body">
+                            <center>
+                                <a href="{% url 'course_detail' ucourse.course.course_slug %}" class="btn btn-info py-2 my-1">Continue to Learn</a>
+                            </center>
                         </div>
-                        
-                        <button type="submit" class="btn btn-info" id="chapass">Change Password</button>
-                    </form>
-                </div>
+                    </div>
+                </div>{% endfor %}
             </div>
         </main>
     </div>
 </div>
-<script src="{% static 'js/pass_validation.js' %}"></script>
 {% endblock body %}

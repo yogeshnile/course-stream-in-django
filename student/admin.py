@@ -13,6 +13,7 @@ class CourseSubscriptionAdmin(admin.ModelAdmin):
     list_per_page = 20
     search_fields = ('student','course')
     readonly_fields = ('DateStamp',)
+    list_filter = ('student','course','DateStamp')
 
 admin.site.register(StudentInfo, StudentInfoAdmin)
 admin.site.register(CourseSubscription, CourseSubscriptionAdmin)

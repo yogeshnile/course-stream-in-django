@@ -14,8 +14,8 @@ class StudentInfo(models.Model):
         return f"{self.username} - {self.username.email} - {self.mobile_no}"
 
 class CourseSubscription(models.Model):
-    student = models.OneToOneField("student.StudentInfo", verbose_name=("username"), on_delete=models.CASCADE)
-    course = models.OneToOneField("mysite.Course", verbose_name=("title"), on_delete=models.CASCADE)
+    student = models.OneToOneField("student.StudentInfo", verbose_name=("student"), on_delete=models.CASCADE)
+    course = models.OneToOneField("mysite.Course", verbose_name=("course"), on_delete=models.CASCADE)
     DateStamp = models.DateTimeField(default=now)
 
     def __str__(self):
