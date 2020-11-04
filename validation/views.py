@@ -29,10 +29,13 @@ def checkpayment(request):
 
 def FreeCheckout(request, slug):
     course = Course.objects.filter(course_slug=slug).first()
-    student = StudentInfo.objects.filter(username=request.user).first()
-    new_sub = CourseSubscription(student=student, course=course, payment_id="FREE", order_id="FREE")
-    new_sub.save()
-    return redirect('UserCourse')
+    if course.course_type == "FREE":
+        student = StudentInfo.objects.filter(username=request.user).first()
+        new_sub = CourseSubscription(student=student, course=course, payment_id="FREE", order_id="FREE")
+        new_sub.save()
+        return redirect('UserCourse')
+    else:
+        return redirect('home')
 
 def currentPassvalidation(request):
     if request.method == 'POST':
