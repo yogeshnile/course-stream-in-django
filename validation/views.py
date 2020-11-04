@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
 from django.http import HttpResponseRedirect
-from student.models import StudentInfo
+from student.models import StudentInfo, CourseSubscription, PaymentProcess
 
 # Create your views here.
 def checkpayment(request):
@@ -14,7 +14,15 @@ def checkpayment(request):
         order_id = request.POST['razorpay_order_id']
         razorpay_signature = request.POST['razorpay_signature']
 
-        return HttpResponse(payment_id)
+        course_details = PaymentProcess.objects.filter(order_id=order_id).first()
+        course_details.payment_status = True
+        course_details.save()
+
+        complete_payment = CourseSubscription(student=course_details.student, course=course_details.course,
+        payment_id=payment_id, order_id=order_id)
+        complete_payment.save()
+
+        return redirect('UserCourse')
 
 
 def currentPassvalidation(request):
@@ -74,7 +82,7 @@ def handleSignup(request):
         myuser = User.objects.create_user(username, email, password)
         myuser.save()
         myuser = User.objects.filter(username=username).first()
-        student_detail = StudentInfo.objects.create(username=myuser, mobile_no=mobile, dob=dob, address=address)
+        student_detail = StudentInfo.objects.create(username=myuser, email_id=email, mobile_no=mobile, dob=dob, address=address)
         student_detail.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

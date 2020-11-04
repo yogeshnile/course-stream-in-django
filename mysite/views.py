@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Course, Lecture, Section, LectureComment
-from student.models import CourseSubscription, StudentInfo
+from student.models import CourseSubscription, StudentInfo, PaymentProcess
 from django.http import HttpResponseRedirect
 import razorpay
 import json
@@ -20,21 +20,10 @@ def course_detail(request, slug):
     course = Course.objects.filter(course_slug=slug).first()
     section = Section.objects.filter(course=course)
     lecture = Lecture.objects.filter(course=course)
-
-    with open("secret key.json",'r') as secret:
-        key = json.load(secret)['razorpay']
-
-    student = StudentInfo.objects.filter(username=request.user).first()
-    client = razorpay.Client(auth=(key['key id'],key['key secret']))
-    payment_id = client.order.create({'amount':course.course_price*100, 'currency':'INR','payment_capture':'1'})
-    new_payment = CourseSubscription(student=student, course=course, payment_id=payment_id['id'])
-    new_payment.save()
     context = {
         "course":course,
         "section":section,
         "lecture":lecture,
-        "payment":payment_id,
-        "student":student,
     }
     return render(request, 'course/course_detail.html', context)
 
@@ -73,3 +62,24 @@ def videoComment(request):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return redirect('home')
+
+def Checkout(request, slug):
+    course = Course.objects.filter(course_slug = slug).first()
+    if course.course_price == 0:
+        context = {
+            "course":course,
+        }
+    else:
+        with open("secret key.json",'r') as secret:
+            key = json.load(secret)['razorpay']
+        student = StudentInfo.objects.filter(username=request.user).first()
+        client = razorpay.Client(auth=(key['key id'],key['key secret']))
+        payment_id = client.order.create({'amount':course.course_price*100, 'currency':'INR','payment_capture':'1'})
+        new_payment = PaymentProcess(student=student, course=course, order_id=payment_id['id'])
+        new_payment.save()
+        context = {
+            "course":course,
+            "payment":payment_id,
+            "student":student,
+        }
+    return render(request, 'course/checkout.html', context)

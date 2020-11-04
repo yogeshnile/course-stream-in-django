@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout | {{ course.title }} | Courses Details
+{% endblock title %}
+
+{% block head %}
+{% endblock head %}
+
+{% block body %}
+<div class="container my-4">
+    <h2>Check Out</h2>
+    <div class="row my-2">
+        <div class="col-1"></div>
+        <div class="col-4">
+            <div class="card my-4 mx-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                <img src="{{ course.thumbnail_url }}" class="card-img-top" alt="Course Thumbnail" height="150">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><img src="https://img.icons8.com/android/20/000000/time.png" />
+                        {{ course.course_length }}</li>
+                    <li class="list-group-item"><img src="https://img.icons8.com/metro/20/000000/price-tag-euro.png" />
+                        {% if course.course_type == "PAID" %}₹ {{ course.course_price }} /-{% else %}{{ course.course_type }}{% endif %}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-6">
+            <h3 class="my-2">Your cart</h3>
+            <div class="card my-4 shadow-lg bg-white rounded">
+                <div class="card-body"><center>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><img src="https://img.icons8.com/metro/20/000000/price-tag-euro.png" />
+                        {% if course.course_type == "PAID" %}₹ {{ course.course_price }} /-{% else %}{{ course.course_type }}{% endif %}</li>
+                </ul>
+                <button class="btn btn-outline-success" id="rzp-button1"><img src="https://img.icons8.com/ios/19/000000/lock--v2.png"/> Continue to checkout</button></center>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if payment %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_EvRkz2Lul3YChi", // Enter the Key ID generated from the Dashboard
+    "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Startup",
+    "description": "{{course.title}}",
+    "image": "https://example.com/your_logo",
+    "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "/validate/course/check-payment/payment-ckecking",
+    "prefill": {
+        "name": "{{student.username}}",
+        "email": "{{student.email_id}}",
+        "contact": "{{student.mobile_no}}"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>{% endif %}
+{% endblock body %}
