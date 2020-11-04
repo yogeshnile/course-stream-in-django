@@ -10,5 +10,6 @@ urlpatterns = [
     path('user/login', views.handlelogin, name='handlelogin'),
     path('user/logout', views.handlelogout, name='handlelogout'),
     path('user/signup', views.handleSignup, name='handleSignup'),
-    path('course/check-payment/payment-ckecking', csrf_exempt(views.checkpayment), name='checkpayment')
+    path('course/check-payment/payment-ckecking', csrf_exempt(views.checkpayment), name='checkpayment'),
+    path('Courses/check-payment/free/<str:slug>', views.FreeCheckout, name='FreeCheckout'),
 ]

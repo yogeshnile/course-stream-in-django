@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
 from django.http import HttpResponseRedirect
 from student.models import StudentInfo, CourseSubscription, PaymentProcess
+from mysite.models import Course
+from student.models import CourseSubscription, StudentInfo
 
 # Create your views here.
 def checkpayment(request):
@@ -23,7 +25,14 @@ def checkpayment(request):
         complete_payment.save()
 
         return redirect('UserCourse')
+    return redirect('home')
 
+def FreeCheckout(request, slug):
+    course = Course.objects.filter(course_slug=slug).first()
+    student = StudentInfo.objects.filter(username=request.user).first()
+    new_sub = CourseSubscription(student=student, course=course, payment_id="FREE", order_id="FREE")
+    new_sub.save()
+    return redirect('UserCourse')
 
 def currentPassvalidation(request):
     if request.method == 'POST':
