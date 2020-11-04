@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 import json
 from django.http import JsonResponse
@@ -8,6 +8,15 @@ from django.http import HttpResponseRedirect
 from student.models import StudentInfo
 
 # Create your views here.
+def checkpayment(request):
+    if request.method == "POST":
+        payment_id = request.POST['razorpay_payment_id']
+        order_id = request.POST['razorpay_order_id']
+        razorpay_signature = request.POST['razorpay_signature']
+
+        return HttpResponse(payment_id)
+
+
 def currentPassvalidation(request):
     if request.method == 'POST':
         data = json.loads(request.body)

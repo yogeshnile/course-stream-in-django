@@ -3,7 +3,7 @@ from .models import Course, Lecture, Section, LectureComment
 
 # Register your models here.
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title','course_type')
+    list_display = ('title','course_type','course_price')
     search_fields = ('title',)
     list_filter = ('course_type',)
     list_per_page = 10
@@ -11,7 +11,7 @@ class CourseAdmin(admin.ModelAdmin):
     readonly_fields = ('course_slug',)
     # prepopulated_fields = {'course_slug':['title']}
     fieldsets = [
-        ("UPDATE BY ADMIN", {'fields': ['title','description','thumbnail_url','course_type','course_length']}),
+        ("UPDATE BY ADMIN", {'fields': ['title','description','thumbnail_url','course_type','course_length','course_price']}),
         ("UPDATE BY SYSTEM", {'fields': ['course_slug']}),
     ]
 

@@ -17,12 +17,15 @@ class Course(models.Model):
     course_type = models.CharField(max_length=4,choices=COURSE_TYPE, default="FREE")
     course_length = models.CharField(max_length=20)
     course_slug = models.SlugField(default="-")
+    course_price = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.course_type} - {self.title}."
 
     def save(self, *args, **kwargs):
         self.course_slug = slugify(self.title)
+        if self.course_type == "FREE":
+            course_price = 0
         super().save(*args, **kwargs)
 
 class Section(models.Model):

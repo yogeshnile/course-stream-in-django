@@ -26,7 +26,6 @@ def UserCourse(request):
     if request.user.is_authenticated == True:
         user = StudentInfo.objects.filter(username=request.user).first()
         ucourse = CourseSubscription.objects.filter(student=user)
-        print(ucourse)
         contest = {
             "ucourse":ucourse,
         }
