@@ -20,10 +20,16 @@ def course_detail(request, slug):
     course = Course.objects.filter(course_slug=slug).first()
     section = Section.objects.filter(course=course)
     lecture = Lecture.objects.filter(course=course)
+    if request.user.is_authenticated == True:
+        subscription_course = CourseSubscription.objects.filter(student=StudentInfo.objects.filter(username=request.user).first(), 
+        course=course).first()
+    else:
+        subscription_course = None
     context = {
         "course":course,
         "section":section,
         "lecture":lecture,
+        "subscription_course":subscription_course,
     }
     return render(request, 'course/course_detail.html', context)
 
