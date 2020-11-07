@@ -27,6 +27,115 @@
 # Technology used in Project :hotsprings:
 <img target="_blank" src="https://github.com/yogeshnile/technology/blob/master/django.png" width="300">     <img target="_blank" src="https://github.com/yogeshnile/technology/blob/master/AJAX.png" width="300">
 
+# Directory Tree :cactus:
+<details><summary>Show Tree</summary>
+ 
+ ```bash
+ .
+├── blog
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_auto_20201004_1907.py
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── templatetags
+│   │   ├── extras.py
+│   │   └── __init__.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── db2.sqlite3
+├── db.sqlite3
+├── LICENSE
+├── manage.py
+├── mysite
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_lecture_course.py
+│   │   ├── 0003_auto_20201001_1806.py
+│   │   ├── 0004_auto_20201002_1139.py
+│   │   ├── 0005_lecture_lecture_type.py
+│   │   ├── 0006_lecturecomment.py
+│   │   ├── 0007_course_course_price.py
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── README.md
+├── requirements.txt
+├── secret key.json
+├── startup
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── static
+│   ├── css
+│   │   └── dashboard.css
+│   ├── images
+│   │   ├── Courses.png
+│   │   └── courses.webp
+│   └── js
+│       ├── pass_validation.js
+│       └── validation.js
+├── student
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_coursesubscription.py
+│   │   ├── 0003_coursesubscription_datestamp.py
+│   │   ├── 0004_auto_20201102_1949.py
+│   │   ├── 0005_coursesubscription_payment_id.py
+│   │   ├── 0006_auto_20201104_1008.py
+│   │   ├── 0007_auto_20201104_1238.py
+│   │   ├── 0008_studentinfo_email_id.py
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── templates
+│   ├── 404.html
+│   ├── base.html
+│   ├── blog
+│   │   ├── blog.html
+│   │   └── blogpost.html
+│   ├── course
+│   │   ├── checkout.html
+│   │   ├── course_detail.html
+│   │   ├── courses.html
+│   │   ├── index.html
+│   │   ├── lecture.html
+│   │   └── pricing.html
+│   └── student
+│       ├── change_password.html
+│       ├── info.html
+│       └── user_course.html
+└── validation
+    ├── admin.py
+    ├── apps.py
+    ├── __init__.py
+    ├── migrations
+    │   └── __init__.py
+    ├── models.py
+    ├── tests.py
+    ├── urls.py
+    └── views.py
+
+18 directories, 81 files
+ ```
+</details>
+
 ## Bug / Feature Request :man_technologist:
 If you find a bug (the website couldn't handle the query and / or gave undesired results), kindly open an issue [here](https://github.com/yogeshnile/course-stream-in-django/issues/new) by including your search query and the expected result.
 
