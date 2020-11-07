@@ -2,6 +2,11 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+import string, random
+
+def get_random_string(lenght):
+    letter = string.ascii_letters
+    return ''.join(random.choice(letter) for i in range(lenght))
 
 # Create your models here.
 
@@ -24,6 +29,7 @@ class Course(models.Model):
 
     def save(self, *args, **kwargs):
         self.course_slug = slugify(self.title)
+        self.course_slug += f"-{get_random_string(10)}"
         if self.course_type == "FREE":
             course_price = 0
         super().save(*args, **kwargs)
@@ -51,9 +57,9 @@ class Lecture(models.Model):
     def save(self, *args, **kwargs):
         self.course = self.section.course
         self.lecture_slug = slugify(self.title)
+        self.lecture_slug += f"-{get_random_string(10)}"
         if self.section.course.course_type == "FREE":
             self.lecture_type = "NOT PREMIUM"
-            self.video_url = "https://youtube.com/embed/"+self.video_url
         super().save(*args, **kwargs)
 
     def __str__(self):
