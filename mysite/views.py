@@ -70,22 +70,24 @@ def videoComment(request):
     return redirect('home')
 
 def Checkout(request, slug):
-    course = Course.objects.filter(course_slug = slug).first()
-    if course.course_price == 0:
-        context = {
-            "course":course,
-        }
-    else:
-        with open("secret key.json",'r') as secret:
-            key = json.load(secret)['razorpay']
-        student = StudentInfo.objects.filter(username=request.user).first()
-        client = razorpay.Client(auth=(key['key id'],key['key secret']))
-        payment_id = client.order.create({'amount':course.course_price*100, 'currency':'INR','payment_capture':'1'})
-        new_payment = PaymentProcess(student=student, course=course, order_id=payment_id['id'])
-        new_payment.save()
-        context = {
-            "course":course,
-            "payment":payment_id,
-            "student":student,
-        }
-    return render(request, 'course/checkout.html', context)
+    if request.user.is_authenticated == True:
+        course = Course.objects.filter(course_slug = slug).first()
+        if course.course_price == 0:
+            context = {
+                "course":course,
+            }
+        else:
+            with open("secret key.json",'r') as secret:
+                key = json.load(secret)['razorpay']
+            student = StudentInfo.objects.filter(username=request.user).first()
+            client = razorpay.Client(auth=(key['key id'],key['key secret']))
+            payment_id = client.order.create({'amount':course.course_price*100, 'currency':'INR','payment_capture':'1'})
+            new_payment = PaymentProcess(student=student, course=course, order_id=payment_id['id'])
+            new_payment.save()
+            context = {
+                "course":course,
+                "payment":payment_id,
+                "student":student,
+            }
+        return render(request, 'course/checkout.html', context)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
