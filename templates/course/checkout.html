@@ -54,12 +54,12 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     var options = {
-        "key": "rzp_test_EvRkz2Lul3YChi", // Enter the Key ID generated from the Dashboard
+        "key": "{{key}}", // Enter the Key ID generated from the Dashboard
         "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
         "name": "Startup",
         "description": "{{course.title}}",
-        "image": "https://example.com/your_logo",
+        "image": "https://cdn3.vectorstock.com/i/1000x1000/66/97/startup-logo-vector-19136697.jpg",
         "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "callback_url": "/validate/course/check-payment/payment-ckecking",
         "prefill": {
